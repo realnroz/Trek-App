@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}-Registration{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row outer-row">
+            <div class="col outer-col left-container d-flex justify-content-center align-items-center">
+              <form>
+                  <h1><span>S</span>ign Up Now..</h1>
+                  <div class="row">
+                    <div class=" col mb-3">
+                      <label for="exampleInputEmail1" class="form-label">First Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" required>
+                    </div>
+                    <div class=" col  mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" required>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col">
+                      <label for="exampleInputEmail1" class="form-label">Address</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" required>
+                    </div>
+                    <div class=" col">
+                      <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                      <input type="tel" pattern="[0-9]{10}"  placeholder= "xxxxxxxxxx" class="form-control" id="exampleInputEmail1" required> 
+                      <div id="emailHelp" class="form-text">Phone number must be 10 digits long.</div>
+                    </div>
+                  </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" required>
+                    </div>
+                    <button type="submit" class="btn btn-lg">Sign Up</button>
+                  </form>
+            </div>
+            <div class="col  outer-col right-container">
+            </div>
+    </div>
+</div>
+
+{% endblock %}

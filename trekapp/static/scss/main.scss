@@ -1,9 +1,49 @@
-@import 'config';
+@import 'config','registration';
 
-nav{
-    .container-fluid{
-        margin: 0 100px;
+body{
+    background-color: $primary-color !important;
+
+    nav{
+        padding-top: 30px !important;
+        .container-fluid{
+            background-color: transparent !important;
+            margin: 0 100px;
+            .navbar-brand{
+    
+                color: $secondary-color;
+                padding-right: 50px;
+
+                &:hover{
+                    color: $secondary-color !important;
+                }
+            }
+
+            .nav-link {
+               padding-right: 30px !important;
+            }
+
+            .btn{
+                background-color: $secondary-color;
+                color: white;
+            }
+        }
     }
+    
+    .modal{
+        &-title{
+            span{
+                color: $primary-color;
+            }
+        }
+        &-body{
+            .btn{
+                background-color: $primary-color;
+            }
+        }
+    }
+
+
+
 }
 
 

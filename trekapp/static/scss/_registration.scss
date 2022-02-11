@@ -1,0 +1,39 @@
+.container{
+    position: absolute;
+    top: 52%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    box-shadow: 5px 10px $secondary-color;
+
+    .outer-row{
+        .outer-col{
+            width: 600px;
+            height: 650px;
+        }
+        .left-container{
+            background-color: white;
+            
+            form {
+                h1{
+                    align-self: flex-start;
+                    margin-bottom: 30px;
+    
+                    span{
+                        color: $primary-color !important;
+                    }
+                }
+                
+                .btn{
+                    background-color: $primary-color;
+                }
+            }   
+        }
+    
+        .right-container{
+            background-image: url('../images/bg-image.jpg');
+            background-size: cover;
+            background-position:center bottom;
+        }
+    }
+
+}
