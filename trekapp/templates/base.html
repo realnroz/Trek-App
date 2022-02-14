@@ -49,6 +49,35 @@
     </div>
   </nav>
 
+
+
+  <!-- Alert Box -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+
+  <!-- Form Erros  -->
+  {% if form %}
+  <div class="error">
+    {% for field in form.errors %}
+    {% for error in form.errors[field] %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{error}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
   <!-- Login Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">

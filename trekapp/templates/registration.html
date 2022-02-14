@@ -4,44 +4,67 @@
 
 {% block content %}
 
+<script type="text/javascript">
+
+  $(document).ready(function () {
+   
+  window.setTimeout(function() {
+      $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+          $(this).remove(); 
+      });
+  }, 5000);
+   
+  });
+  </script>
+
+
+
 <div class="container">
     <div class="row outer-row">
             <div class="col outer-col left-container d-flex justify-content-center align-items-center">
-              <form>
+              <form action="/registration" method="POST">
+                {{form.csrf_token}}
                   <h1><span>S</span>ign Up Now..</h1>
                   <div class="row">
                     <div class=" col mb-3">
-                      <label for="exampleInputEmail1" class="form-label">First Name</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" required>
+                      <label for="exampleInputEmail1" class="form-label">{{form.first_name.label}}</label>
+                      <!-- <input type="text" name = "first_name" class="form-control" id="exampleInputEmail1" required> -->
+                      {{form.first_name( class="form-control")}}
                     </div>
                     <div class=" col  mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Last Name</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" required>
+                      <label for="exampleInputEmail1" class="form-label">{{form.last_name.label}}</label>
+                      <!-- <input type="text" name = "last_name" class="form-control" id="exampleInputEmail1" required> -->
+                      {{form.last_name( class="form-control")}}
                     </div>
                   </div>
                   <div class="row">
                     <div class=" col">
-                      <label for="exampleInputEmail1" class="form-label">Address</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" required>
+                      <label for="exampleInputEmail1" class="form-label">{{ form.address.label }}</label>
+                      <!-- <input type="text" name = "address" class="form-control" id="exampleInputEmail1" required> -->
+                      {{ form.address(class="form-control") }}
                     </div>
                     <div class=" col">
-                      <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-                      <input type="tel" pattern="[0-9]{10}"  placeholder= "xxxxxxxxxx" class="form-control" id="exampleInputEmail1" required> 
+                      <label for="exampleInputEmail1" class="form-label">{{form.phone_number.label}}</label>
+                      <!-- <input type="tel" pattern="[0-9]{10}" name="phone_number" placeholder= "xxxxxxxxxx" class="form-control" id="exampleInputEmail1" required>  -->
+                      {{form.phone_number(class="form-control")}}
                       <div id="emailHelp" class="form-text">Phone number must be 10 digits long.</div>
                     </div>
                   </div>
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                      <label for="exampleInputEmail1" class="form-label">{{form.email.label}}</label>
+                      <!-- <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required> -->
+                      {{form.email(class="form-control")}}
                       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" required>
+                      <label for="exampleInputPassword1" class="form-label">{{form.password1.label}}</label>
+                      <!-- <input type="password"  name="password1" class="form-control" id="exampleInputPassword1" required> -->
+                      {{form.password1(class="form-control")}}
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword2" required>
+                        <label for="exampleInputPassword2" class="form-label">{{form.password2.label}}</label>
+                        <!-- <input type="password" name="password2" class="form-control" id="exampleInputPassword2" required> -->
+                        {{form.password2(class="form-control")}}
                     </div>
                     <button type="submit" class="btn btn-lg">Sign Up</button>
                   </form>
@@ -50,5 +73,7 @@
             </div>
     </div>
 </div>
+
+
 
 {% endblock %}
