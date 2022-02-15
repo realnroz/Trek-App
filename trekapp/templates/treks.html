@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}-Trek Destinations{% endblock %}
+
+{% block content %}
+
+<div class="innercontainer">
+    <div class="search-bar">
+        <i class="bi bi-search fs-4"></i>
+        <input type="text"  class="fs-5" placeholder="Search">
+    </div>
+    <div class="treks">
+        {% for row in resp %}
+        <div class="card" style="max-width: 500px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ url_for('static',filename='images/treks_images/card-image.jpg')}}" class="img-fluid rounded-start img-thumbnail" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body text-nowrap">
+                  <h2 class="card-title">{{row.1}}</h2>
+                  <p class="card-text mb-1">Total Days : {{row.2}}</p>
+                  <p class="card-text mb-1">Difficulty : {{row.3}}</p>
+                  <p class="card-text mb-1">Total Cost : Rs {{row.4}}</p>
+                  <p class="card-text mb-1">Upvotes : {{row.5}}</p>
+                  <p class="card-text mb-1"><small class="text-muted">{{row.6}} {{row.7}}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

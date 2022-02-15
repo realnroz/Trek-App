@@ -57,7 +57,18 @@ def login():
     else:
         flash("Invalid Credentials. Please try again.","danger")
         return redirect("/")
-    
+
+
+@app.route("/treks")
+def allTreks():
+    cursor = mysql.connection.cursor()
+    cursor.execute('''SELECT td.id as 'SNO',td.title as 'Title',td.days as 'Days',td.difficulty as 'Difficulty',td.total_cost as 'Total Cost',td.upvotes as 'Upvotes',u.first_name as 'First Name',u.last_name as 'Last Name' FROM `trek_destinations` as td JOIN `users` as u ON td.user_id=u.id''')
+    treks = cursor.fetchall()
+    cursor.close()
+    return render_template("treks.html",resp = treks)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
