@@ -8,3 +8,5 @@ Flask app for elective
 3.Install required packages
       
       pip install -r requirements.txt
+      
+4.Run main.py
