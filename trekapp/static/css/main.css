@@ -45,6 +45,8 @@
 }
 
 .innercontainer {
+  width: 100%;
+  margin-top: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -52,12 +54,11 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 50px;
+  gap: 40px;
 }
 
 .innercontainer .search-bar {
-  margin-left: 110px;
-  margin-top: 30px;
+  margin: 0 110px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -72,13 +73,11 @@
 }
 
 .innercontainer .search-bar input {
-  width: 29%;
+  width: 30.75%;
   height: 50px !important;
   background: #FFFFFF;
   border-radius: 4px;
   border: none;
-  font-weight: 500;
-  font-size: 20px;
   line-height: 26px;
   padding-left: 60px;
 }
@@ -92,9 +91,78 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   gap: 30px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.innercontainer .treks .card {
+  -webkit-box-shadow: 5px 10px #2568FB;
+          box-shadow: 5px 10px #2568FB;
+}
+
+.innercontainer .treks .card-body a {
+  text-decoration: none;
+  color: black;
+}
+
+.innercontainer .treks .card-body a:hover {
+  color: #2568FB;
+}
+
+.index-content {
+  margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.index-content .left-frame {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-preferred-size: 60%;
+      flex-basis: 60%;
+}
+
+.index-content .left-frame h1 {
+  font-size: 70px;
+}
+
+.index-content .left-frame p {
+  font-size: 100px;
+}
+
+.index-content .left-frame h1, .index-content .left-frame p {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  padding-right: 70px;
+}
+
+.index-content .right-frame {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.index-content .right-frame img {
+  width: 650px;
+  height: 650px;
 }
 
 body {

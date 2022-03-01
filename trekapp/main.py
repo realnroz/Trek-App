@@ -67,6 +67,10 @@ def allTreks():
     cursor.close()
     return render_template("treks.html",resp = treks)
 
+@app.route("/trek/<int:id>")
+def getTrekById(id):
+    pass
+
 
 
 
