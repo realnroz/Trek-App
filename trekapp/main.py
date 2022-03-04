@@ -1,6 +1,6 @@
 from crypt import methods
 from sqlite3 import Cursor
-from flask import Flask,render_template, request,redirect,flash
+from flask import Flask,render_template, request,redirect,flash,jsonify
 from forms import RegistrationForm
 
 # for database
@@ -67,9 +67,20 @@ def allTreks():
     cursor.close()
     return render_template("treks.html",resp = treks)
 
-@app.route("/trek/<int:id>")
-def getTrekById(id):
-    pass
+@app.route("/trek/<int:pk>")
+def getTrekById(pk):
+    cursor = mysql.connection.cursor()
+    cursor.execute('''SELECT td.id as 'SNO',td.title as 'Title',td.days as 'Days',td.difficulty as 'Difficulty',td.total_cost as 'Total Cost',td.upvotes as 'Upvotes',u.first_name as 'First Name',u.last_name as 'Last Name' FROM `trek_destinations` as td JOIN `users` as u ON td.user_id=u.id where td.id=%s''',(pk,))
+    trek = cursor.fetchone()
+    cursor.close()
+
+
+    cursor = mysql.connection.cursor()
+    cursor.execute('''SELECT * FROM `iternaries` WHERE `trek_destination_id` = %s;''',(pk,))
+    iternaries = cursor.fetchall()
+    cursor.close()  
+
+    return render_template('trek_detail.html',trek=trek,iternaries=iternaries)
 
 
 

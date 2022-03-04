@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}-Trek Detail{% endblock %}
+
+
+
+{% block content %}
+
+
+    <div class="card mx-auto detail">
+        <div class="card-body">
+            <div class="card-header">
+                <h1>{{trek.1}}</h1>
+            </div>
+            <div class="row card-header">
+                <div class="col-md-6">
+                    <h5 class="card-title mb-1">Total Days : {{trek.2}}</h5>
+                    <h5 class="card-title mb-1">Difficulty : {{trek.3}}</h5>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="card-title mb-1">Total Cost : Rs {{trek.4}}</h5>
+                    <h5 class="card-title mb-1">Upvotes : {{trek.5}}</h5>
+                </div>
+            </div>
+            <div class="description px-3">
+                {% if iternaries %}
+                <h5 class="card-title mb-1">Iternaries</h5>
+                {% else %}
+                <p class="card-text">No iternaries added yet.</p>
+                {% endif %}
+                {% for iternary in iternaries %}
+                <p class="card-text"> Day {{iternary.2}} : {{iternary.1}}</p>
+                {% endfor %}
+                <button type="button" class="btn btn-lg">Upvote</button>
+            </div>
+            
+        </div>
+        <div class="card-footer text-muted text-center">
+            Added by {{trek.6}} {{trek.7}}
+          
+        </div>
+      </div>
+
+    
+
+
+{% endblock %}

@@ -18,7 +18,7 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body text-nowrap">
-                  <h2 class="card-title"><a data-bs-toggle="modal" href="#exampleModal" >{{row.1}}</a></h2>
+                  <h2 class="card-title"><a href="/trek/{{row.0}}">{{row.1}}</a></h2>
                   <p class="card-text mb-1">Total Days : {{row.2}}</p>
                   <p class="card-text mb-1">Difficulty : {{row.3}}</p>
                   <p class="card-text mb-1">Total Cost : Rs {{row.4}}</p>
@@ -32,24 +32,5 @@
     </div>
 </div>
 
-
-<!-- Iternaries Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title" id="exampleModalLabel">Iternaries</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock %}

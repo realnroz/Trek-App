@@ -1,4 +1,4 @@
-@import 'config','registration','treks','index';
+@import 'config','registration','treks','index','trekDetail';
 
 body{
     background-color: $primary-color !important;
@@ -38,6 +38,11 @@ body{
         &-body{
             .btn{
                 background-color: $primary-color;
+
+                &:hover{
+                    background-color: $secondary-color;
+                    color: white;
+                }
             }
         }
     }

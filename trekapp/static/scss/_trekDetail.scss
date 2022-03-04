@@ -1,0 +1,47 @@
+.detail{
+    margin: 15vh auto;
+
+    max-width: 600px;    
+    background-color: #C4C4C4;
+    box-shadow: 5px 10px $secondary-color;
+
+    img{
+        height: 100%;
+    }
+
+
+    .card-body{
+        .card-header{
+            background-color: white;
+            margin-bottom: 20px;
+
+            h1:first-letter{
+                color: $primary-color; 
+                // font-size: 200%; 
+            }
+        }
+
+        .description{
+            .btn{
+                background-color: $primary-color;
+
+                &:hover{
+                    background-color: $secondary-color;
+                    color: white;
+                }
+            }
+        }
+    }
+    .card-footer{
+        background-color: white ;
+    }
+}
+
+
+
+@media (max-width:768px){
+    .detail{
+        margin: 5vh auto;
+    }
+}
+
