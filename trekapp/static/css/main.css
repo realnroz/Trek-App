@@ -109,6 +109,12 @@
   outline: none;
 }
 
+.innercontainer .search-bar button {
+  margin-left: 20px;
+  color: white;
+  background-color: #2568FB;
+}
+
 .innercontainer .treks {
   margin: 0 110px;
   display: -webkit-box;
@@ -134,6 +140,19 @@
 
 .innercontainer .treks .card-body a:hover {
   color: #2568FB;
+}
+
+#addTrek .modal-title span {
+  color: #FECD45;
+}
+
+#addTrek .modal-body .btn {
+  background-color: #FECD45;
+}
+
+#addTrek .modal-body .btn:hover {
+  background-color: #2568FB;
+  color: white;
 }
 
 .detail {
@@ -207,17 +226,21 @@ body nav .container-fluid .btn {
   color: white;
 }
 
-body .modal-title span {
+body #login .modal-title span {
   color: #FECD45;
 }
 
-body .modal-body .btn {
+body #login .modal-body .btn {
   background-color: #FECD45;
 }
 
-body .modal-body .btn:hover {
+body #login .modal-body .btn:hover {
   background-color: #2568FB;
   color: white;
+}
+
+body #logout .modal-title span {
+  color: #FECD45;
 }
 
 body .alert {
@@ -237,5 +260,11 @@ body .error {
           flex-direction: column;
   position: absolute;
   right: 0;
+}
+
+@media (max-width: 1220px) {
+  .navbar-text {
+    display: none;
+  }
 }
 /*# sourceMappingURL=main.css.map */

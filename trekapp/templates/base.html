@@ -36,17 +36,25 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('allTreks')}}">Trek Destinations</a>
           </li>
+          {% if not session['email'] %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('registration')}}">Registration</a>
           </li>
+          {% endif %}
         </ul>
-        <!-- <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
-        <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Sign In
+
+        {% if session['email'] %}
+        <span class="navbar-text me-5 fs-5">
+          Hello , {{session['email']}} ! <br>
+        </span>
+        <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#logout">
+          Sign Out
         </button>
+        {% else %}
+          <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#login">
+            Sign In
+          </button>
+        {% endif %}
       </div>
     </div>
   </nav>
@@ -81,7 +89,7 @@
   {% endif %}
 
   <!-- Login Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -101,15 +109,38 @@
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <input type="password"  name="password" class="form-control" id="exampleInputPassword1" required>
             </div>
-            <div class="mb-3 form-check">
+            <!-- <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-lg">Sign In</button>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout modal  -->
+  <div class="modal fade" id="logout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="staticBackdropLabel"><span>S</span>ign Out Now...</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- form  -->
+          <form action="/logout" method="POST">
+            <h5 class="mt-3"> Are you sure ? Do you want to sign out ?</h5> 
+            <div class="buttons mt-4">
+              <button type="submit" class="btn bg-warning me-2">Yes</button>
+              <button type="button" class="btn bg-primary" data-bs-dismiss="modal">No&nbsp;</button>
+            </div>
+        </form>
         </div>
       </div>
     </div>

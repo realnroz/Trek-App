@@ -31,7 +31,9 @@
                 {% for iternary in iternaries %}
                 <p class="card-text"> Day {{iternary.2}} : {{iternary.1}}</p>
                 {% endfor %}
+                {% if session['email'] %}
                 <button type="button" class="btn btn-lg">Upvote</button>
+                {% endif %}
             </div>
             
         </div>

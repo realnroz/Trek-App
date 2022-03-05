@@ -29,13 +29,13 @@ body{
         }
     }
     
-    .modal{
-        &-title{
+    #login{
+        .modal-title{
             span{
                 color: $primary-color;
             }
         }
-        &-body{
+        .modal-body{
             .btn{
                 background-color: $primary-color;
 
@@ -43,6 +43,14 @@ body{
                     background-color: $secondary-color;
                     color: white;
                 }
+            }
+        }
+    }
+
+    #logout{
+        .modal-title{
+            span{
+                color: $primary-color;
             }
         }
     }
@@ -65,3 +73,8 @@ body{
 }
 
 
+@media (max-width:1220px){
+    .navbar-text{
+        display: none;
+    }
+}

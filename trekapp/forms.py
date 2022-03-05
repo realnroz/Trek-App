@@ -12,4 +12,3 @@ class RegistrationForm(FlaskForm):
     email=StringField('Email',validators=[DataRequired(),Email()])
     password1=PasswordField('Password',validators=[DataRequired(),EqualTo('password2',message='Passwords do not match.')])
     password2=PasswordField('Confirm Password',validators=[DataRequired()])
-    

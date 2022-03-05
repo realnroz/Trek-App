@@ -8,6 +8,11 @@
     <div class="search-bar">
         <i class="bi bi-search fs-4"></i>
         <input type="text"  class="fs-5" placeholder="Search">
+        {% if session['email'] %}
+        <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#addTrek">
+          Add Trek
+        </button>
+        {% endif %}
     </div>
     <div class="treks">
         {% for row in resp %}
@@ -32,5 +37,44 @@
     </div>
 </div>
 
+
+<!-- Add Trek Modal  -->
+<div class="modal fade" id="addTrek" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="staticBackdropLabel"><span>A</span>dd Trek Now...</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- form  -->
+          <form action="/addTrek" method="POST">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Title</label>
+              <input type="text" class="form-control" name="title" id="exampleInputEmail1" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Days</label>
+              <input type="number" class="form-control" name="days" id="exampleInputEmail1" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Difficulty</label>
+              <input type="text" class="form-control" name="difficulty" id="exampleInputEmail1"  placeholder="Level 0" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Total Cost</label>
+              <input type="number" class="form-control" name="total_cost" id="exampleInputEmail1" required>
+            </div>
+
+            <button type="submit" class="btn btn-lg">Add Destination</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

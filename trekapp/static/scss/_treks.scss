@@ -31,6 +31,12 @@
                 outline:none;
             }
         }
+
+        button{
+            margin-left: 20px;
+            color: white;
+            background-color: $secondary-color;
+        }
     }
     
     .treks{
@@ -54,5 +60,24 @@
             }
         }
 
+    }
+}
+
+
+#addTrek{
+    .modal-title{
+        span{
+            color: $primary-color;
+        }
+    }
+    .modal-body{
+        .btn{
+            background-color: $primary-color;
+
+            &:hover{
+                background-color: $secondary-color;
+                color: white;
+            }
+        }
     }
 }
