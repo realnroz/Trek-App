@@ -49,15 +49,16 @@ body{
 
     .alert{
         width: 350px !important;
-        float: right;
         margin-top: 10px;
-        z-index: 1;
+        position: absolute;
+        right: 0;
     }
 
     .error{
         display: flex;
         flex-direction: column;
-        float: right;
+        position: absolute;
+        right: 0;
     }
 
 

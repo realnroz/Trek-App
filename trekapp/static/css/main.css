@@ -222,9 +222,9 @@ body .modal-body .btn:hover {
 
 body .alert {
   width: 350px !important;
-  float: right;
   margin-top: 10px;
-  z-index: 1;
+  position: absolute;
+  right: 0;
 }
 
 body .error {
@@ -235,6 +235,7 @@ body .error {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  float: right;
+  position: absolute;
+  right: 0;
 }
 /*# sourceMappingURL=main.css.map */
