@@ -1,6 +1,4 @@
 from crypt import methods
-from doctest import FAIL_FAST
-from pickle import FALSE
 from sqlite3 import Cursor
 from flask import Flask,render_template, request,redirect,flash,jsonify, session
 from forms import RegistrationForm
@@ -26,6 +24,9 @@ mysql = MySQL(app)
 # app.config['SESSION_PERMANENET'] = False
 # app.config['SESSION_TYPE'] = 'filesystem'
 # Session(app)
+
+
+# ----------------------------------------------------VIEWS-------------------------------------------------
 
 @app.route("/")
 def index():
@@ -116,7 +117,7 @@ def addTrek():
 
     user_id = resp[0]
  
-    # Finally inserts values into trek_destinatio table 
+    # Finally inserts values into trek_destination table 
     cursor = mysql.connection.cursor()
     cursor.execute('''INSERT INTO trek_destinations values(NUll,%s,%s,%s,%s,%s,%s)''',(title,days,difficulty,total_cost,upvotes,user_id))
     mysql.connection.commit()
@@ -126,7 +127,58 @@ def addTrek():
 
     return redirect('/treks')
 
-    
+
+
+# ------------------------------------API INTERFACE BEGINS FROM HERE -------------------------------------
+
+
+@app.route('/api/login',methods=['POST'])
+def logiAPI():
+    email = request.json['email']
+    password = request.json['password']
+
+    cursor = mysql.connection.cursor()
+    resp = cursor.execute('''SELECT * FROM users where email = %s and password = %s''',(email,password))
+    cursor.close()
+    if resp == 1:
+        session['email'] = email    
+        return jsonify({'message':'Successfully logged in.'})
+    else:
+        return jsonify({'message':'Login Failed. Please try again.'})
+
+
+
+@app.route('/api/addTrek',methods=["POST"])
+def addTrekAPI():
+    title = request.json['title']
+    days = request.json['days']
+    difficulty = request.json['difficulty']
+    total_cost = request.json['total_cost']
+    upvotes = 0
+
+    # Gets User ID of logged in user 
+    cursor = mysql.connection.cursor()
+    cursor.execute('''SELECT id FROM `users` WHERE  email = %s''',(session['email'],))
+    resp = cursor.fetchone()
+    cursor.close()
+
+    user_id = resp[0]
+ 
+    # Finally inserts values into trek_destination table 
+    cursor = mysql.connection.cursor()
+    cursor.execute('''INSERT INTO trek_destinations values(NUll,%s,%s,%s,%s,%s,%s)''',(title,days,difficulty,total_cost,upvotes,user_id))
+    mysql.connection.commit()
+    cursor.close()
+
+    return jsonify({'message':'Trek Destination successfully added.'})
+
+
+
+
+
+
+
+# ----------------------------------------------------------------------------------
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -20,6 +20,11 @@ body{
 
             .nav-link {
                padding-right: 30px !important;
+               cursor: pointer !important;
+            }
+
+            span{
+                cursor: pointer;
             }
 
             .btn{

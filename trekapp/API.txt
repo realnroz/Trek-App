@@ -1,0 +1,42 @@
+ ----------------API ENDPOINTS-----------------
+
+=> POST  http://127.0.0.1:5000/api/login
+
+    Parameters:
+
+    -email      : required --- Email of the registered user
+    -password   : required --- Password of the registered user
+
+    eg  Payload:
+    {
+        "email"     : "your email",
+        "password"  : "your password"
+    }
+
+    Response:
+
+    -logged_in  : Returns login status ( True / Flase )
+    -message    : A message after login is attempted 
+
+
+
+=> POST http://127.0.0.1:5000/api/addTrek
+
+    Parameters:
+
+    -title      : required : text   --- Title of the trek
+    -days       : required : number --- Number of days required for the trek
+    -difficulty : required : text   --- Difficulty Level of the trek
+    -total_cost : required : number --- Total cost required for the trek
+
+    eg  Payload:
+    {
+        "title"         : "your title",
+        "days"          : <days>,
+        "difficulty"    : "difficulty"
+        "total_cost"    :<total_cost>
+    }
+
+    Response:
+
+    -message    : A message after trek addition is attempted   
