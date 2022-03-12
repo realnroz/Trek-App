@@ -3,8 +3,10 @@ Flask app for elective
 
 1.Create database & configure database settings in main.py
 
-=> Table name : users
+   Table name : users
+
    Columns:
+   
       -id               int,not null,auto_increment
       -first_name       varchar(200)
       -last_name        varchar(200)
@@ -13,8 +15,10 @@ Flask app for elective
       -email            varchar(200)
       -password         varchar(200)
       
-=> Table name : trek_destinations
+   Table name : trek_destinations
+
    Columns:
+   
       -id               int,not null,auto_increment
       -title            varchar(200)
       -days             int
@@ -22,9 +26,11 @@ Flask app for elective
       -total_cost       int
       -upvotes          int
       -user_id          int
-
-=> Table name : iternaries
+      
+   Table name : iternaries
+   
    Columns:
+   
       -id                     int,not null,auto_increment
       -title                  varchar(200)
       -day                    int
