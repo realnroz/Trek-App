@@ -14,3 +14,5 @@ build/
 trekapp/static/images/profile_images/*
 
 !trekapp/static/images/profile_images/.gitkeep
+
+flask_session
