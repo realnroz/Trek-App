@@ -2,6 +2,7 @@
 Flask app for elective
 
 1.Create database & configure database settings in main.py
+
 => Table name : users
    Columns:
       -id               int,not null,auto_increment
