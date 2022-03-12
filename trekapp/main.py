@@ -207,7 +207,7 @@ def __validateToken(token):
     resp = cursor.execute('''SELECT id FROM `users` WHERE  token = %s''',(token,))
     cursor.close()
 
-    if resp is 0:
+    if resp == 0:
         return False
     return True
 
