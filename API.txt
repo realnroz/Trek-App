@@ -1,5 +1,13 @@
  ----------------API ENDPOINTS-----------------
 
+ => GET  http://127.0.0.1:5000/api/treks
+
+    Parameters  : None
+
+    Response:
+
+    -treks     : Gives all the saved treks
+
 => POST  http://127.0.0.1:5000/api/login
 
     Parameters:
@@ -17,6 +25,7 @@
 
     -logged_in  : Returns login status ( True / Flase )
     -message    : A message after login is attempted 
+    -token      : A token ID provided for logged in user
 
 
 
@@ -28,13 +37,15 @@
     -days       : required : number --- Number of days required for the trek
     -difficulty : required : text   --- Difficulty Level of the trek
     -total_cost : required : number --- Total cost required for the trek
+    -token      : required : text   --- Token ID of the logged in user
 
     eg  Payload:
     {
         "title"         : "your title",
         "days"          : <days>,
         "difficulty"    : "difficulty"
-        "total_cost"    :<total_cost>
+        "total_cost"    : <total_cost>,
+        "token"         : "your_token"
     }
 
     Response:

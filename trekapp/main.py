@@ -1,13 +1,18 @@
 from crypt import methods
+from lib2to3.pgen2 import token
 from sqlite3 import Cursor
-from flask import Flask,render_template, request,redirect,flash,jsonify, session
+from flask import Flask,render_template, request,redirect,flash,jsonify,session
+from itsdangerous import json
 from forms import RegistrationForm
 
 # for database
 from flask_mysqldb import MySQL
 
 #for sessions
-# from flask_sessions import Session
+from flask_session import Session
+
+# for unique tokens 
+import uuid
 
 app = Flask(__name__)
 app.secret_key="b'\xee\x7f\x15O\x0f\xee\x0b\xd7\xa4ixK\xc9#\x17_'"
@@ -21,9 +26,9 @@ app.config['MYSQL_DB'] = 'db_trekapp'
 mysql = MySQL(app)
 
 # Session Config 
-# app.config['SESSION_PERMANENET'] = False
-# app.config['SESSION_TYPE'] = 'filesystem'
-# Session(app)
+app.config['SESSION_PERMANENET'] = False
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 
 # ----------------------------------------------------VIEWS-------------------------------------------------
@@ -131,6 +136,14 @@ def addTrek():
 
 # ------------------------------------API INTERFACE BEGINS FROM HERE -------------------------------------
 
+@app.route('/api/treks')
+def getAllTreksAPI():
+    cursor = mysql.connection.cursor()
+    cursor.execute('''SELECT td.id as 'SNO',td.title as 'Title',td.days as 'Days',td.difficulty as 'Difficulty',td.total_cost as 'Total Cost',td.upvotes as 'Upvotes',u.first_name as 'First Name',u.last_name as 'Last Name' FROM `trek_destinations` as td JOIN `users` as u ON td.user_id=u.id''')
+    treks = cursor.fetchall()
+    cursor.close()
+    return jsonify({'treks':treks})
+
 
 @app.route('/api/login',methods=['POST'])
 def logiAPI():
@@ -140,9 +153,20 @@ def logiAPI():
     cursor = mysql.connection.cursor()
     resp = cursor.execute('''SELECT * FROM users where email = %s and password = %s''',(email,password))
     cursor.close()
+
+    token = ""
+
     if resp == 1:
-        session['email'] = email    
-        return jsonify({'message':'Successfully logged in.'})
+        session['email'] = email   
+        token = str(uuid.uuid4()) 
+
+        cursor = mysql.connection.cursor()
+        resp = cursor.execute('''UPDATE users SET token = %s WHERE email = %s''',(token,email))
+
+        mysql.connection.commit()
+        cursor.close()
+
+        return jsonify({'message':'Successfully logged in.','logged_in':True,'token':token})
     else:
         return jsonify({'message':'Login Failed. Please try again.'})
 
@@ -154,6 +178,11 @@ def addTrekAPI():
     days = request.json['days']
     difficulty = request.json['difficulty']
     total_cost = request.json['total_cost']
+    token = request.json['token'] or None
+
+    if __validateToken(token) is False:
+        return jsonify({'message':'Please enter a valid token.'})
+
     upvotes = 0
 
     # Gets User ID of logged in user 
@@ -171,6 +200,16 @@ def addTrekAPI():
     cursor.close()
 
     return jsonify({'message':'Trek Destination successfully added.'})
+
+# Validates if provided token exists 
+def __validateToken(token):
+    cursor = mysql.connection.cursor()         
+    resp = cursor.execute('''SELECT id FROM `users` WHERE  token = %s''',(token,))
+    cursor.close()
+
+    if resp is 0:
+        return False
+    return True
 
 
 
