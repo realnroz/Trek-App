@@ -8,6 +8,35 @@
 
     -treks     : Gives all the saved treks
 
+    
+=> POST http://127.0.0.1:5000/api/register
+
+    Parameters:
+
+    -first_name      : required : text   --- First Name of the user
+    -last_name       : required : text   --- Last Name of the user
+    -address         : required : text   --- Address of the user
+    -phone_number    : required : number --- Contact number of the user
+    -email           : required : email  --- Email of the user
+    -password1       : required : text   --- Password for the userID
+    -password2       : required : text   --- Confirmation password
+
+    eg  Payload:
+    {
+        "first_name"         : "your first_name",
+        "last_name "         : "your last_name",
+        "address"            : "your address"
+        "phone_number"       : "your phone_number"
+        "email"              : "your email"
+        "password1"          : "password1"
+        "password2"          : "password2"
+    }
+
+    Response:
+
+    -message    : A message after registration is attempted
+
+
 => POST  http://127.0.0.1:5000/api/login
 
     Parameters:
@@ -52,29 +81,3 @@
 
     -message    : A message after trek addition is attempted   
 
-=> POST http://127.0.0.1:5000/api/register
-
-    Parameters:
-
-    -first_name      : required : text   --- First Name of the user
-    -last_name       : required : text   --- Last Name of the user
-    -address         : required : text   --- Address of the user
-    -phone_number    : required : number --- Contact number of the user
-    -email           : required : email  --- Email of the user
-    -password1       : required : text   --- Password for the userID
-    -password2       : required : text   --- Confirmation password
-
-    eg  Payload:
-    {
-        "first_name"         : "your first_name",
-        "last_name "         : "your last_name",
-        "address"            : "your address"
-        "phone_number"       : "your phone_number"
-        "email"              : "your email"
-        "password1"          : "password1"
-        "password2"          : "password2"
-    }
-
-    Response:
-
-    -message    : A message after registration is attempted
