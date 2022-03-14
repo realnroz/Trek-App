@@ -1,4 +1,6 @@
 from crypt import methods
+from ctypes import addressof
+import email
 from lib2to3.pgen2 import token
 from sqlite3 import Cursor
 from flask import Flask,render_template, request,redirect,flash,jsonify,session
@@ -48,7 +50,7 @@ def registration():
         if form.validate_on_submit():
             resp = cursor.execute('''SELECT * FROM users where email LIKE %s''',[form.email.data])
             if resp == 0:
-                cursor.execute('''INSERT INTO users values(NUll,%s,%s,%s,%s,%s,%s)''',(form.first_name.data,form.last_name.data,form.address.data,form.phone_number.data,form.email.data,form.password1.data))
+                cursor.execute('''INSERT INTO users values(NULL,%s,%s,%s,%s,%s,%s,NULL)''',(form.first_name.data,form.last_name.data,form.address.data,form.phone_number.data,form.email.data,form.password1.data))
                 mysql.connection.commit()
                 cursor.close()
                 flash("User successfully registered.","success")
@@ -143,6 +145,32 @@ def getAllTreksAPI():
     treks = cursor.fetchall()
     cursor.close()
     return jsonify({'treks':treks})
+
+
+@app.route('/api/register',methods=['POST'])
+def registerAPI():
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    address = request.json['address']
+    phone_number = request.json['phone_number']
+    email = request.json['email']
+    password1 =request.json['password1']
+    password2 =request.json['password2']
+
+    cursor = mysql.connection.cursor()
+    resp = cursor.execute('''SELECT * FROM users where email LIKE %s''',(email,))
+    cursor.close()
+    if resp == 1:
+        return jsonify({"message":"Email already taken."})
+    elif password1 != password2:
+        return jsonify({'message':'Passwords do not match.'})
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute('''INSERT INTO users values(NUll,%s,%s,%s,%s,%s,%s,NULL)''',(first_name,last_name,address,phone_number,email,password1))
+        mysql.connection.commit()
+        cursor.close()
+        return jsonify({'message':'User successfully registered.'})
+
 
 
 @app.route('/api/login',methods=['POST'])
