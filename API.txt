@@ -26,7 +26,7 @@
         "first_name"         : "your first_name",
         "last_name "         : "your last_name",
         "address"            : "your address"
-        "phone_number"       : "your phone_number"
+        "phone_number"       : <your phone_number>
         "email"              : "your email"
         "password1"          : "password1"
         "password2"          : "password2"
@@ -81,3 +81,46 @@
 
     -message    : A message after trek addition is attempted   
 
+
+
+=> PUT http://127.0.0.1:5000/api/updateTrek
+
+    Parameters:
+    -trekID     : required : number --- ID of trek destination that you desire to update
+    -title      : required : text   --- Title of the trek
+    -days       : required : number --- Number of days required for the trek
+    -difficulty : required : text   --- Difficulty Level of the trek
+    -total_cost : required : number --- Total cost required for the trek
+    -token      : required : text   --- Token ID of the logged in user
+
+    eg  Payload:
+    {
+        "trekID"        : <ID>,
+        "title"         : "your title",
+        "days"          : <days>,
+        "difficulty"    : "difficulty"
+        "total_cost"    : <total_cost>,
+        "token"         : "your_token"
+    }
+
+    Response:
+
+    -message    : A message after trek update is attempted  
+
+
+
+=> DELETE http://127.0.0.1:5000/api/deleteTrek
+
+    Parameters:
+    -trekID     : required : number --- ID of trek destination that you desire to delete
+    -token      : required : text   --- Token ID of the logged in user
+
+    eg  Payload:
+    {
+        "trekID"        : <ID>,
+        "token"         : "your_token"
+    }
+
+    Response:
+
+    -message    : A message after trek deletion is attempted

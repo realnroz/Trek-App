@@ -229,6 +229,47 @@ def addTrekAPI():
 
     return jsonify({'message':'Trek Destination successfully added.'})
 
+
+@app.route('/api/updateTrek',methods=['PUT'])
+def updateTrekAPI():
+    trekID = request.json['trekID']
+    title = request.json['title']
+    days = request.json['days']
+    difficulty = request.json['difficulty']
+    total_cost = request.json['total_cost']
+    token = request.json['token'] or None
+    if __validateToken(token) is False:
+        return jsonify({'message':'Please enter a valid token.'})
+
+    userID = __getUserID(token)
+
+    cursor = mysql.connection.cursor()
+    resp=cursor.execute('''UPDATE `trek_destinations` SET `title`=%s, `days`=%s, `difficulty`=%s, `total_cost`=%s WHERE `id`=%s and `user_id`=%s''',(title,days,difficulty,total_cost,trekID,userID))
+    if resp == 0:
+        return jsonify({"message":"You have no persmission to update others' trek destinations."})
+    mysql.connection.commit()
+    cursor.close()
+
+    return jsonify({'message':'Trek Destination has been successfully added.'})
+
+@app.route('/api/deleteTrek',methods=['DELETE'])
+def deleteTrekAPI():
+    trekID = request.json['trekID']
+    token = request.json['token'] or None
+    if __validateToken(token) is False:
+        return jsonify({'message':'Please enter a valid token.'})
+
+    userID = __getUserID(token)
+
+    cursor = mysql.connection.cursor()
+    resp=cursor.execute('''DELETE FROM `trek_destinations` WHERE `id`=%s and `user_id`=%s''',(trekID,userID))
+    if resp == 0:
+        return jsonify({"message":"You have no persmission to delete others' trek destinations."})
+    mysql.connection.commit()
+    cursor.close()
+
+    return jsonify({'message':'Trek Destination has been successfully deleted.'})
+
 # Validates if provided token exists 
 def __validateToken(token):
     cursor = mysql.connection.cursor()         
@@ -239,6 +280,15 @@ def __validateToken(token):
         return False
     return True
 
+# Gets logged in user's ID from the token 
+def __getUserID(token):
+    cursor = mysql.connection.cursor()         
+    cursor.execute('''SELECT id FROM `users` WHERE  token = %s''',(token,))
+    user =  cursor.fetchone()
+    cursor.close()
+
+    userID = user[0]
+    return userID
 
 
 
