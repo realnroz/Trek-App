@@ -1,4 +1,4 @@
- ----------------API ENDPOINTS-----------------
+ ----------------------------------API ENDPOINTS-------------------------------------
 
  => GET  http://127.0.0.1:5000/api/treks
 
@@ -7,6 +7,17 @@
     Response:
 
     -treks     : Gives all the saved treks
+
+
+ => GET  http://127.0.0.1:5000/api/treks/search/<keyword>
+
+    Parameters  : 
+
+    -keyword    : String value on which search is based on
+
+    Response:
+
+    -treks     : Gives all the treks matched with the keyword
 
     
 => POST http://127.0.0.1:5000/api/register
@@ -124,3 +135,89 @@
     Response:
 
     -message    : A message after trek deletion is attempted
+
+
+------------------------------------------ REST API ---------------------------------------------
+
+=> <method> http://127.0.0.1:5000/rest/treks
+
+1. GET 
+
+    - Returns all the treks avaialble
+
+    Parameters  : None
+
+    Response:
+
+    -treks     : Gives all the saved treks
+
+2. POST
+
+    - Adds the trek
+
+    Parameters:
+
+    -title      : required : text   --- Title of the trek
+    -days       : required : number --- Number of days required for the trek
+    -difficulty : required : text   --- Difficulty Level of the trek
+    -total_cost : required : number --- Total cost required for the trek
+    -token      : required : text   --- Token ID of the logged in user
+
+    eg  Payload:
+    {
+        "title"         : "your title",
+        "days"          : <days>,
+        "difficulty"    : "difficulty"
+        "total_cost"    : <total_cost>,
+        "token"         : "your_token"
+    }
+
+    Response:
+
+    -message    : A message after trek addition is attempted
+
+3. PUT
+
+    - Updates the trek
+
+    Parameters:
+    -trekID     : required : number --- ID of trek destination that you desire to update
+    -title      : required : text   --- Title of the trek
+    -days       : required : number --- Number of days required for the trek
+    -difficulty : required : text   --- Difficulty Level of the trek
+    -total_cost : required : number --- Total cost required for the trek
+    -token      : required : text   --- Token ID of the logged in user
+
+    eg  Payload:
+    {
+        "trekID"        : <ID>,
+        "title"         : "your title",
+        "days"          : <days>,
+        "difficulty"    : "difficulty"
+        "total_cost"    : <total_cost>,
+        "token"         : "your_token"
+    }
+
+    Response:
+
+    -message    : A message after trek update is attempted
+
+4. DELETE
+
+    - Deletes the trek
+
+    Parameters:
+    -trekID     : required : number --- ID of trek destination that you desire to delete
+    -token      : required : text   --- Token ID of the logged in user
+
+    eg  Payload:
+    {
+        "trekID"        : <ID>,
+        "token"         : "your_token"
+    }
+
+    Response:
+
+    -message    : A message after trek deletion is attempted
+
+

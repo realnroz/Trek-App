@@ -1,10 +1,4 @@
-from crypt import methods
-from ctypes import addressof
-import email
-from lib2to3.pgen2 import token
-from sqlite3 import Cursor
-from flask import Flask,render_template, request,redirect,flash,jsonify,session
-from itsdangerous import json
+from flask import Flask,render_template,request,redirect,flash,jsonify,session
 from forms import RegistrationForm
 
 # for database
@@ -146,6 +140,16 @@ def getAllTreksAPI():
     cursor.close()
     return jsonify({'treks':treks})
 
+@app.route('/api/treks/search/<string:keyword>')
+def searchTreksAPI(keyword):
+    cursor = mysql.connection.cursor()
+    searchString  = "%"+keyword+"%"
+    cursor.execute('''SELECT * FROM  `trek_destinations`  where `title` like  %s''',(searchString,))
+    treks = cursor.fetchall()
+    cursor.close()
+
+    return jsonify({'treks':treks})
+
 
 @app.route('/api/register',methods=['POST'])
 def registerAPI():
@@ -213,13 +217,7 @@ def addTrekAPI():
 
     upvotes = 0
 
-    # Gets User ID of logged in user 
-    cursor = mysql.connection.cursor()
-    cursor.execute('''SELECT id FROM `users` WHERE  email = %s''',(session['email'],))
-    resp = cursor.fetchone()
-    cursor.close()
-
-    user_id = resp[0]
+    user_id =__getUserID(token)
  
     # Finally inserts values into trek_destination table 
     cursor = mysql.connection.cursor()
@@ -250,7 +248,7 @@ def updateTrekAPI():
     mysql.connection.commit()
     cursor.close()
 
-    return jsonify({'message':'Trek Destination has been successfully added.'})
+    return jsonify({'message':'Trek Destination has been successfully updated.'})
 
 @app.route('/api/deleteTrek',methods=['DELETE'])
 def deleteTrekAPI():
@@ -290,6 +288,81 @@ def __getUserID(token):
     userID = user[0]
     return userID
 
+
+#-----------------------------------REST API EXAMPLE----------------------------------------------
+
+@app.route('/rest/treks',methods=['GET','POST','PUT','DELETE'])
+def restAPI():
+    # Gets all the treks available
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute('''SELECT td.id as 'SNO',td.title as 'Title',td.days as 'Days',td.difficulty as 'Difficulty',td.total_cost as 'Total Cost',td.upvotes as 'Upvotes',u.first_name as 'First Name',u.last_name as 'Last Name' FROM `trek_destinations` as td JOIN `users` as u ON td.user_id=u.id''')
+        treks = cursor.fetchall()
+        cursor.close()
+        return jsonify({'treks':treks})
+
+    # Adds trek
+    elif request.method == 'POST':
+        title = request.json['title']
+        days = request.json['days']
+        difficulty = request.json['difficulty']
+        total_cost = request.json['total_cost']
+        token = request.json['token'] or None
+
+        if __validateToken(token) is False:
+            return jsonify({'message':'Please enter a valid token.'})
+
+        upvotes = 0
+
+        userID = __getUserID(token)
+    
+        # Finally inserts values into trek_destination table 
+        cursor = mysql.connection.cursor()
+        cursor.execute('''INSERT INTO trek_destinations values(NUll,%s,%s,%s,%s,%s,%s)''',(title,days,difficulty,total_cost,upvotes,userID))
+        mysql.connection.commit()
+        cursor.close()
+
+        return jsonify({'message':'Trek Destination successfully added.'})
+
+    # Updates Trek
+    elif request.method == 'PUT':
+        trekID = request.json['trekID']
+        title = request.json['title']
+        days = request.json['days']
+        difficulty = request.json['difficulty']
+        total_cost = request.json['total_cost']
+        token = request.json['token'] or None
+        if __validateToken(token) is False:
+            return jsonify({'message':'Please enter a valid token.'})
+
+        userID = __getUserID(token)
+
+        cursor = mysql.connection.cursor()
+        resp=cursor.execute('''UPDATE `trek_destinations` SET `title`=%s, `days`=%s, `difficulty`=%s, `total_cost`=%s WHERE `id`=%s and `user_id`=%s''',(title,days,difficulty,total_cost,trekID,userID))
+        if resp == 0:
+            return jsonify({"message":"You have no persmission to update others' trek destinations."})
+        mysql.connection.commit()
+        cursor.close()
+
+        return jsonify({'message':'Trek Destination has been successfully updated.'})
+
+    # Deletes Trek
+    elif request.method == 'DELETE':
+        trekID = request.json['trekID']
+        token = request.json['token'] or None
+        if __validateToken(token) is False:
+            return jsonify({'message':'Please enter a valid token.'})
+
+        userID = __getUserID(token)
+
+        cursor = mysql.connection.cursor()
+        resp=cursor.execute('''DELETE FROM `trek_destinations` WHERE `id`=%s and `user_id`=%s''',(trekID,userID))
+        if resp == 0:
+            return jsonify({"message":"You have no persmission to delete others' trek destinations."})
+        mysql.connection.commit()
+        cursor.close()
+
+        return jsonify({'message':'Trek Destination has been successfully deleted.'})
 
 
 
